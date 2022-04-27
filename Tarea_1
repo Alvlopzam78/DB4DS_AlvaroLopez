@@ -13,6 +13,8 @@ from suppliers s
 where s.contact_title != 'Marketing Manager';
 
 -- ejercicio 3 
+select * from orders o;
+
 select o.order_id
 from orders o join customers c using (customer_id)
 where c.country != 'USA';
@@ -125,6 +127,7 @@ update customers2 set current_preference = 'preferent' where num_orders > 20;
 select c.customer_id, c.contact_name, c.num_orders, current_preference from customers2 c;
 
 -- ejercicio 8
+-- Se seleccionan como fiestas navideñas solo los 25 de dicimebre porque es el día considerado oficial
 select distinct e.employee_id, concat(e.first_name, ' ', e.last_name) as "Name" 
 from orders o join employees e using (employee_id)
 where extract(month from o.order_date) = 12 and extract(day from o.order_date) = 25;
@@ -144,7 +147,7 @@ from orders o join order_details od using (order_id)
 where od.quantity = (select max(od2.quantity) from order_details od2);
 
 --- opcion 2
---- Interpretando que pide a qué país se va la mayor cantidad de unidades de producto
+--- Interpretando que pide a qué país se va la mayor cantidad de unidades de cualquier producto
 select o.ship_country, sum(od.quantity) as "Cant"
 from orders o join order_details od using (order_id)
 group by o.ship_country
