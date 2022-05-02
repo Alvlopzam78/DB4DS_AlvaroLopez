@@ -49,7 +49,7 @@ values
 --realizamos el query 
 select * 
 from emails e
-where e.email not like '%@%.%' or e.email like '%.' or e.email like '%..%' or e.email like '%@%@%'
+where e.email not like '%@%.%' or e.email like '%.' or e.email like '%..%' or e.email like '%@%@%' or e.email like '@%'
 or e.email like '%!%' 
 or e.email like '%&%'
 or e.email like '%/%'
