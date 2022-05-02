@@ -80,3 +80,12 @@ or e.email like '%>%'
 or e.email like '%<%'
 or e.email like '%¨%'
 ;
+
+-- Ahora bien, podemos hacer otro query.
+-- De acuerdo con la fuente citada, los mails con caracteres especiales sí son validos. Por lo tanto, podemos simlificar el query de la siguiente manera;
+-- fuente: https://help.returnpath.com/hc/en-us/articles/220560587-What-are-the-rules-for-email-address-syntax-
+select * 
+from emails e
+where e.email not like '%@%.%' or e.email like '%.' or e.email like '%..%' or e.email like '%@%@%' or e.email like '@%' or e.email like '%@' or e.email like '% %' or e.email like '%@@%' or e.email like '%@.%' or e.email like '%.@';
+
+
