@@ -11,6 +11,7 @@ having country = 'Canada';
 
 -- Pregunta 2
 -- ¿Qué cliente ha rentado más de nuestra sección de adultos?
+-- Es importante considerar en esta pregunta que la interpreté como qué cliente ha rentado una película de adultos más veces.  
 select count(c.customer_id), concat(c.first_name, ' ', c.last_name) as customer_name
 from rental r join inventory i using (inventory_id)
 join film f using (film_id) join customer c using (customer_id)
