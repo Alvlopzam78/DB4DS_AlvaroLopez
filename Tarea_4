@@ -116,9 +116,11 @@ info as (
 select customer_id, nombre, 
 promedio_pagos,
 promedio_rentas,
-prom_pago - prom_renta as diferencia_promedios
+concat(extract(day from prom_pago - prom_renta), ' ', 'dias',' ', extract(hour from prom_pago - prom_renta), ' ', 'horas') as diferencia_promedios
 from t join customer c using (customer_id) join r using (customer_id) join info using (customer_id);
 
--- Por lo tanto podemos concluir que son iguales, pues la diferencia entre ambos promedios es cero.
+/* Podemos observar que ambos promedios son muy similares pues la diferencia entre la gran mayoría de ellos es cero.
+ * Sin embargo, hay algunos clientes (el 401 por ejemplo) que sí difieren un poco aunque en no más de un día.
+ */ 
 
 
