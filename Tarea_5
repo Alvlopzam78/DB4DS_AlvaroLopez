@@ -24,7 +24,8 @@ from conteo;
 -- Suponemos que vamos a acomodar las verticalmente y que apilaremos un máximo de 6 películas.
 -- la alutra de cada película con su arnés será de 30 cm suponiendo que las medidas son dadas como altura x profundidad x ancho 
 -- Como vamos a acomodar las películas verticalmente y apilar máximo 6, entonces la altura mínima sería 30 cm * 6 = 180 cm
--- Entonces, por cuestiones de seguridad, establezcamos una altura de 200cm para que pueda existir un poco de espacio entre las películas
+-- Ahora, por seguridad, digamos que haya 1 centímetro entre cada película apliada para que sea más fácil para el robot encontrarla
+-- Entonces la altura sería 187 cm
 
 with conteo as(
 	select store_id, count(i.film_id) as tot_film
@@ -35,11 +36,12 @@ cilindros as(
 	select store_id, tot_film, ceil(tot_film/((50000/500)-10.00)) as num_cilindros
 	from conteo
 )
-select store_id, tot_film, num_cilindros, 30 * 6 + 20 as altura_cilindro_cm 
+select store_id, tot_film, num_cilindros, 30 * 6 + 7 as altura_cilindro_cm 
 from cilindros;
 
 -- Ahora calculamos el RADIO
--- Como las películas están acomodadas verticalmente y hay 6 apiladas, entonces en el centro queda un polígono de 90/6 = 15 lados
+-- Como las películas están acomodadas verticalmente y están acomodadas en pilas de 6 películas, entonces tenemos 15 pilas de 6 películas cada una
+-- Por lo anterior, en el centro de la base del cilíndro queda un polígono de 15 lados
 -- Para calcular el radio mínimo utilizamos argumentos geométricos
 -- Sabemos que el radio del círculo será la hipotenusa del triángulo que se forma con los siguientes catetos:
 -- a: ancho del arnés + apotema del polígono del centro
