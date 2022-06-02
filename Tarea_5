@@ -22,9 +22,9 @@ from conteo;
 -- Empecemos por la ALTURA
 -- Ya obtuvimos que cada cilindro tendrá 90 películas 
 -- Suponemos que vamos a acomodar las verticalmente y que apilaremos un máximo de 6 películas.
--- la alutra de cada película con su arnés será de 30 cm suponiendo que las medidas son dadas como altura x ancho x largo 
+-- la alutra de cada película con su arnés será de 30 cm suponiendo que las medidas son dadas como altura x profundidad x ancho 
 -- Como vamos a acomodar las películas verticalmente y apilar máximo 6, entonces la altura mínima sería 30 cm * 6 = 180 cm
--- Entonces, por cuestiones de seguridad, establezcamos una altura de 200cm. 
+-- Entonces, por cuestiones de seguridad, establezcamos una altura de 200cm para que pueda existir un poco de espacio entre las películas
 
 with conteo as(
 	select store_id, count(i.film_id) as tot_film
@@ -74,6 +74,3 @@ radios as(
 )
 select store_id, tot_film, num_cilindros, altura_cilindro_cm, round((sqrt(power(a,2) + power(4,2)))::int) + 10 as radio_cilindro_cm
 from radios join alturas using (store_id) join cilindros using (store_id) join conteo using (store_id);
-
-
-
