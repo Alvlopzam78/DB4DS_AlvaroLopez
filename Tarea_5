@@ -7,14 +7,14 @@ group by store_id;
 
 -- Sabemos que un cilindro a lo más puede cargar 50 kg
 -- Si cada película con su arnés pesa 500 gr, entonces cada cilindro tendrá 100 películas
--- Por cuestiones de seguridad, establezcamos que el máximo de peliculas pro cilindro sea 90
+-- Por cuestiones de seguridad, establezcamos que el máximo de peliculas por cilindro sea 90
 -- Con esa información vamos a agregar al query anterior cuántos cilindros necesitamos por store
 with conteo as(
 	select store_id, count(i.film_id) as tot_film
 	from store s join inventory i using (store_id)
 	group by store_id	
 )
-select store_id, tot_film, ceil(tot_film/((50000/500)-15.00)) as num_cilindros
+select store_id, tot_film, ceil(tot_film/((50000/500)-10.00)) as num_cilindros
 from conteo;
 
 -- Ahora vamos a calcular las medidas de cada cilindro 
@@ -32,7 +32,7 @@ with conteo as(
 	group by store_id	
 ),
 cilindros as(
-	select store_id, tot_film, ceil(tot_film/((50000/500)-15.00)) as num_cilindros
+	select store_id, tot_film, ceil(tot_film/((50000/500)-10.00)) as num_cilindros
 	from conteo
 )
 select store_id, tot_film, num_cilindros, 30 * 6 + 20 as altura_cilindro_cm 
@@ -61,7 +61,7 @@ with conteo as(
 	group by store_id	
 ),
 cilindros as(
-	select store_id, ceil(tot_film/((50000/500)-15.00)) as num_cilindros
+	select store_id, ceil(tot_film/((50000/500)-10.00)) as num_cilindros
 	from conteo
 ),
 alturas as(
@@ -74,3 +74,6 @@ radios as(
 )
 select store_id, tot_film, num_cilindros, altura_cilindro_cm, round((sqrt(power(a,2) + power(4,2)))::int) + 10 as radio_cilindro_cm
 from radios join alturas using (store_id) join cilindros using (store_id) join conteo using (store_id);
+
+
+
